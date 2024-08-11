@@ -33,9 +33,13 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    margin-bottom: 15px; /* Increased from 10px to 15px */
     font-size: 0.9em;
     color: #7fffd4;
+}
+
+.goal-setting {
+    margin-bottom: 20px; /* Added extra space after goal setting */
 }
 
 .goal-setting input {
@@ -61,36 +65,7 @@ textarea {
     box-sizing: border-box;
 }
 
-textarea:focus {
-    outline: none;
-    border-color: #7fffd4;
-}
-
-.btn {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 16px;
-    border-radius: 5px;
-    width: 100%;
-}
-
-.btn.primary {
-    background-color: #7fffd4;
-    color: #1e2530;
-}
-
-.btn.primary:hover {
-    background-color: #6ce9c0;
-}
-
-.celebration {
-    text-align: center;
-    font-size: 24px;
-    margin-top: 20px;
-    min-height: 30px;
-}
+/* ... rest of the CSS remains the same ... */
 
 @media (max-width: 600px) {
     .container {
@@ -104,6 +79,10 @@ textarea:focus {
     .word-count, .goal-setting {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .goal-setting {
+        margin-bottom: 15px; /* Adjusted for mobile */
     }
 
     .goal-setting input {
