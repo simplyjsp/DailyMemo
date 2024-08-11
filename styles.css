@@ -18,6 +18,9 @@ body {
     backdrop-filter: blur(10px);
     padding: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 h1 {
@@ -26,11 +29,22 @@ h1 {
     margin-bottom: 20px;
 }
 
-.word-count {
-    text-align: right;
+.word-count, .goal-setting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
     font-size: 0.9em;
     color: #7fffd4;
+}
+
+.goal-setting input {
+    width: 100px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #7fffd4;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 textarea {
@@ -44,6 +58,7 @@ textarea {
     font-size: 16px;
     resize: vertical;
     margin-bottom: 20px;
+    box-sizing: border-box;
 }
 
 textarea:focus {
@@ -70,6 +85,13 @@ textarea:focus {
     background-color: #6ce9c0;
 }
 
+.celebration {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 20px;
+    min-height: 30px;
+}
+
 @media (max-width: 600px) {
     .container {
         padding: 20px;
@@ -77,5 +99,14 @@ textarea:focus {
 
     textarea {
         height: 200px;
+    }
+
+    .word-count, .goal-setting {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .goal-setting input {
+        margin-top: 5px;
     }
 }
