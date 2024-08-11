@@ -2,20 +2,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const textInput = document.getElementById('textInput');
     const wordCount = document.getElementById('wordCount');
     const downloadBtn = document.getElementById('downloadBtn');
+    const wordGoalInput = document.getElementById('wordGoal');
+    const celebration = document.getElementById('celebration');
+
+    // Clear content on page load
+    localStorage.removeItem('dailyMemoText');
+    textInput.value = '';
 
     textInput.addEventListener('input', updateWordCount);
     downloadBtn.addEventListener('click', downloadText);
+    wordGoalInput.addEventListener('input', checkWordGoal);
 
     function updateWordCount() {
         const text = textInput.value.trim();
         const words = text ? text.split(/\s+/).length : 0;
         wordCount.textContent = words;
+        checkWordGoal();
+    }
+
+    function checkWordGoal() {
+        const currentWords = parseInt(wordCount.textContent);
+        const goalWords = parseInt(wordGoalInput.value);
+
+        if (goalWords && currentWords >= goalWords) {
+            celebration.innerHTML = '🎉 Congratulations! You\'ve reached your word count goal! 🎉';
+        } else {
+            celebration.innerHTML = '';
+        }
     }
 
     function downloadText() {
         const text = textInput.value;
-        const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
-        const fileName = `${date}_DailyMemo.txt`;
+        const date = new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+        const fileName = `DailyMemo_${date.replace(/\//g, '-')}.txt`;
 
         const blob = new Blob([text], { type: 'text/plain' });
         const url = URL.createObjectURL(blob);
@@ -28,19 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
-    // Auto-save functionality
+    // Optimized auto-save functionality
     let autoSaveTimeout;
     textInput.addEventListener('input', () => {
         clearTimeout(autoSaveTimeout);
         autoSaveTimeout = setTimeout(() => {
             localStorage.setItem('dailyMemoText', textInput.value);
-        }, 1000); // Save after 1 second of inactivity
+        }, 300); // Save after 300ms of inactivity for better responsiveness
     });
-
-    // Load saved text on page load
-    const savedText = localStorage.getItem('dailyMemoText');
-    if (savedText) {
-        textInput.value = savedText;
-        updateWordCount();
-    }
 });
